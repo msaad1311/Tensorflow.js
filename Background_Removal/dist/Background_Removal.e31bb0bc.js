@@ -122,53 +122,47 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var img = document.getElementById('image');
-img.style.height = "358px";
-img.style.width = "636px";
-console.log(img.width);
-
 function loadAndPredict() {
   return _loadAndPredict.apply(this, arguments);
 }
 
 function _loadAndPredict() {
   _loadAndPredict = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var net, segmentation, coloredPartImage, canvas, ctx;
+    var img, net, segmentation, mask, canvas, opacity, flipHorizontal, maskBlurAmount;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
+            img = document.getElementById('image');
+            _context.next = 3;
             return bodyPix.load();
 
-          case 2:
+          case 3:
             net = _context.sent;
-            _context.next = 5;
+            _context.next = 6;
             return net.segmentPerson(img);
 
-          case 5:
+          case 6:
             segmentation = _context.sent;
-            console.log(segmentation);
-            console.log(segmentation.data);
-            coloredPartImage = bodyPix.toMask(segmentation);
-            console.log(coloredPartImage);
-            canvas = document.getElementById('canvas');
-            ctx = canvas.getContext('2d');
-            ctx.putImageData(coloredPartImage, 0, 0); // reshaped_arr = nj.array(segmentation.data).reshape(img.height,img.width)
-            // console.log(reshaped_arr.shape)
-            // console.log(reshaped_arr.filter(reshaped_arr => reshaped_arr === 2).length)
-            // const coloredPartImage = bodyPix.toMask(segmentation);
-            // const maskBackground = true;
-            // // Convert the segmentation into a mask to darken the background.
-            // const backgroundDarkeningMask = bodyPix.toMaskImageData(segmentation, maskBackground);
-            // const opacity = 1;
-            // // const flipHorizontal = false;
-            // // const maskBlurAmount = 0;
-            // const canvas = document.getElementById('canvas');
+            mask = bodyPix.toMask(segmentation); // // mask.width = img.width;
+            // // mask.height = img.height;
+
+            canvas = document.getElementById('canvas'); // // canvas.width = img.width;
+            // // canvas.height = img.height;
+            // // console.log(canvas.width)
+            // // console.log(img.width)
+            // // const ctx = canvas.getContext('2d');
+            // // ctx.putImageData(mask,0,0);
+            // // ctx.drawImage(mask,0,0,636,358);
+
+            opacity = 0.7;
+            flipHorizontal = false;
+            maskBlurAmount = 0; // // const canvas = document.getElementById('canvas');
             // // // Draw the mask image on top of the original image onto a canvas.
             // // // The colored part image will be drawn semi-transparent, with an opacity of
             // // // 0.7, allowing for the original image to be visible under.
-            // bodyPix.drawMask(canvas, img, backgroundDarkeningMask, opacity);
+
+            bodyPix.drawMask(canvas, img, mask, opacity, maskBlurAmount, flipHorizontal);
 
           case 13:
           case "end":
