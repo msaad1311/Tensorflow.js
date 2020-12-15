@@ -1,0 +1,15 @@
+.frames{
+    padding-top: 3em;
+}
+
+#canvas {
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+  }
+
+.reshape{
+    width: 636px;
+    height: 358px;
+}
+
+
+/*# sourceMappingURL=/styles.8986bff4.css.map */

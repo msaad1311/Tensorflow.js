@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <script src="js/jquery-1.8.0.js"></script>
+      <script src="js/jquery.roundabout.js"></script>
+      <link rel="stylesheet" type="text/css" href="style.css"/>
+      <link href="video-js.css" rel="stylesheet"/>
+      <script src="js/video.js"></script>
+      <script src="js/jquery.cookie.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="javascript.js"></script>
+      <title>Packt Video player</title>
+   </head>
+   <body>
+      <img class="logo" src="images/logo.png"/>
+      <div class="banner">
+         <ul id ="nav">
+            <li>
+               <div class="icon orange" style="background-position: 24px -56px;" data-horiz="24px"></div>
+               <a href="#" id="main-menu" class="navig">Main menu </a>
+            </li>
+            <li>
+               <div id="credits-icon" class="icon" style="background-position: 0px 0px;" data-horiz="0px"></div>
+               <a href="credits.html" id="credits" class="navig">Credits </a>
+            </li>
+            <li>
+               <div class="icon" style="background-position: 54px 0px;" data-horiz="54px"></div>
+               <a href="overview.html" id="course" class="navig"> Course Overview </a>
+            </li>
+            <!--<li><div class="icon" style="background-position: 54px 0px;" data-horiz="54px"></div><a href="Videos/Packt.m3u" id="playlist" class="navig"> Playlist </a></li>-->
+         </ul>
+      </div>
+      <div class="gradient">
+         <img src="images/gradient.png" style="width: 100%; background-repeat: repeat-x;">
+      </div>
+      <div id="wrapper">
+         <div class="intro">
+            <div class="inner">
+               <h1>Hands-On Machine Learning with TensorFlow.js</h1>
+            </div>
+         </div>
+         <div class="right">
+            <div id="main_next" class="next"></div>
+         </div>
+         <div class="left">
+            <div id="main_prev" class="prev"></div>
+         </div>
+         <div class="right-bottom">
+            <div id="button-next" class="next-bottom"></div>
+         </div>
+         <div class="left-bottom">
+            <div id="button-prev" class="prev-bottom"></div>
+         </div>
+         <div class="back">
+         </div>
+         <div>
+            <div id="content-main">
+               <ul class="move">
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>Section 1: Getting Ready for Machine Learning</h1>
+                     <p>This section starts with an introduction to machine learning where we cover what is machine learning and what are the steps involved in machine learning. It is then followed by an introduction to TensorFlow.js with the video ending in a hands-on example. Finally while setting up our environment, we will see how to set up TensorFlow.js to use in the browser as well as the server.
+                     <ul>
+                        <li>The Course Overview</li>
+						<li>Introduction to Machine Learning</li>
+						<li>Getting Started with TensorFlow.js Using a Simple Example to Predict Weight</li>
+						<li>Setting Up Our Machine Learning Environment</li>
+                     </ul>
+                     </p>
+                     <div id="#content-1" class="btn btn-primary browse">Browse Videos</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>Section 2: Using Supervised Learning for Predictions</h1>
+                     <p>This section goes into what is supervised learning and what are the different forms of supervised learning. We will see then see an example for each with hands-on examples.
+                     <ul>
+                        <li>Types of Supervised Learning</li>
+						<li>Applying Regression</li>
+						<li>Predicting Salaries after College Using TensorFlow</li>
+						<li>Applying Classification</li>
+						<li>Predicting Mental Health Issues Using Logistic Regression</li>
+                     </ul>
+                     </p>
+                     <div id="#content-2" class="btn btn-primary browse">Browse Videos</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>Section 3: Deep Neural Networks</h1>
+                     <p>Since it’s a TensorFlow course, it's incomplete without deep neural networks. So, we will cover neural networks in detail and work through a hands-on example by the end. 
+                     <ul>
+                        <li>Understanding Simple Neural Networks</li>
+						<li>Concepts in Neural Network</li>
+						<li>Working with Deep Neural Networks</li>
+						<li>Image Classification Using Neural Networks</li>
+                     </ul>
+                     </p>
+                     <div id="#content-3" class="btn btn-primary browse">Browse Videos</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>Section 4: Making Our Models Better</h1>
+                     <p>This section covers topics like regularization, cross-validation, optimization, ensemble learning which are core to a good machine learning model. We will see a hands-on example of using regularization to prevent overfitting. 
+                     <ul>
+                        <li>Model Evaluation</li>
+						<li>Better Measures than Accuracy</li>
+						<li>Improving the Models</li>
+						<li>Optimizing the Models</li>
+                     </ul>
+                     </p>
+                     <div id="#content-4" class="btn btn-primary browse">Browse Videos</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>Section 5: Building Advance Models Easily with Layers</h1>
+                     <p>In this section, we learn about Keras Layers which is like a library and us to build advanced machine learning models easily. 
+                     <ul>
+                        <li>Using High-Level Layers API to Construct Neural Networks</li>
+						<li>Building Advanced Neural Networks with Layers Easily</li>
+						<li>Detecting Digits Using Layers</li>
+						<li>Building A Classifier Using Layers</li>
+                     </ul>
+                     </p>
+                     <div id="#content-5" class="btn btn-primary browse">Browse Videos</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>Section 6: Handling Models in TensorFlow</h1>
+                     <p>In this section, we will cover how to use TensorFlow to handle models. We will learn how to save and load models to that we don't have to train our models again.  We will use pre-trained models from Keras and use it in TensorFlow.js and use a saved TensorFlow model in TensorFlow.js
+                     <ul>
+                        <li>Importing a Keras Model into TensorFlow.js</li>
+						<li>Saving and Loading TensorFlow Models</li>
+						<li>Importing TensorFlow SavedModel into TensorFlow.js</li>
+						<li>Playing PAC-MAN Using a Webcam </li>
+                     </ul>
+                     </p>
+                     <div id="#content-6" class="btn btn-primary browse">Browse Videos</div>
+                  </li>                  
+               </ul>
+            </div>
+            <div class="chapter" id="content-1" style="position: relative; top: -500px; display: none;">
+               <ul class="move">
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>1.1 The Course Overview</h1>
+                     <span>This video provides an overview of the entire course.
+                     </span>
+                     <div id="video1_1" class="btn btn-small btn-primary watch" data-video="videos/video1_1.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video1_1.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>1.2 Introduction to Machine Learning</h1>
+                     <span>
+                        This video aims to teach the viewer what Machine Learning is, so that the concepts of the rest of the course can be understood.
+                        <ul>
+                           <li>Define what Machine Learning Is</li>
+                           <li>Discuss the different types of machine learning </li>
+                           <li>Give an example of each type of Machine Learning Technique</li>
+                        </ul>
+                     </span>
+                     <div id="video1_2" class="btn btn-small btn-primary watch" data-video="videos/video1_2.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video1_2.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>1.3 Getting Started with TensorFlow.js Using a Simple Example to Predict Weight</h1>
+                     <span>
+                        In this video, we will get an introduction to TensorFlow and its concepts.
+                        <ul>
+                           <li>Learn about TensorFlow  </li>
+                           <li>Understand the fundamentals of TensorFlow</li>
+                           <li>Look at a sample TensorFlow Code to understand its Flow</li>
+                        </ul>
+                     </span>
+                     <div id="video1_3" class="btn btn-small btn-primary watch" data-video="videos/video1_3.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video1_3.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>1.4 Setting Up Our Machine Learning Environment</h1>
+                     <span>
+                        In this video, we will look at how to set up our environment for learning/using TensorFlow for the rest of the course.
+                        <ul>
+                           <li>Set up our Server </li>
+                           <li>Install the visual code studio to write our JavaScript code </li>
+                           <li>Use the web browser to see our TensorFlow output</li>
+                        </ul>
+                     </span>
+                     <div id="video1_4" class="btn btn-small btn-primary watch" data-video="videos/video1_4.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video1_4.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>                                
+               </ul>
+            </div>
+            <div class="chapter" id="content-2" style="position: relative; top: -500px; display: none;">
+               <ul class="move">
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>2.1 Types of Supervised Learning</h1>
+                     <span>
+                      In this video, we cover supervised learning in more details.
+                        <ul>
+                           <li>Understand what is supervised learning</li>
+                           <li>Learn about regression as a form of supervised learning</li>
+                           <li>Get to know  classification as a form of supervised learning </li>
+                        </ul>
+                     </span>
+                     <div id="video2_1" class="btn btn-small btn-primary watch" data-video="videos/video2_1.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video2_1.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>2.2 Applying Regression</h1>
+                     <span>
+                        This video aims to teach the viewer about the core concepts in Regression as well as machine learning.
+                        <ul>
+                           <li>Define what is a linear model </li>
+                           <li>Look at some of the fundamental concepts in machine learning of loss function and optimizer</li>
+                           <li>Understand the impact and importance of different learning rates</li>
+                        </ul>
+                     </span>
+                     <div id="video2_2" class="btn btn-small btn-primary watch" data-video="videos/video2_2.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video2_2.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>2.3 Predicting Salaries after College Using TensorFlow</h1>
+                     <span>
+                        In this video, we will implement the linear regression code in  TensorFlow.
+                        <ul>
+                           <li>Go through the steps in linear regression </li>
+                           <li>Revisit the fundamentals of TensorFlow</li>
+                           <li>Look at a TensorFlow Code to understand how linear regression works and how to implement it </li>
+                        </ul>
+                     </span>
+                     <div id="video2_3" class="btn btn-small btn-primary watch" data-video="videos/video2_3.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video2_3.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>2.4 Applying Classification</h1>
+                     <span>
+                        This video goes into the details of classification.
+                        <ul>
+                           <li>Understand what is a classification problem </li>
+                           <li>Learn about logistic regression </li>
+                           <li>Analyze how the cost function is different from linear regression</li>
+                        </ul>
+                     </span>
+                     <div id="video2_4" class="btn btn-small btn-primary watch" data-video="videos/video2_4.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video2_4.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>2.5 Predicting Mental Health Issues Using Logistic Regression</h1>
+                     <span>
+                        In this video, we will implement the logistic regression code in  TensorFlow. 
+                        <ul>
+                           <li>Go through the steps in logistic regression </li>
+                           <li>Write the code to calculate loss function</li>
+                           <li>Look at a TensorFlow Code to understand how logistic regression works and how to implement it</li>
+                        </ul>
+                     </span>
+                     <div id="video2_5" class="btn btn-small btn-primary watch" data-video="videos/video2_5.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video2_5.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>                  
+               </ul>
+            </div>
+            <div class="chapter" id="content-3" style="position: relative; top: -500px; display: none;">
+               <ul class="move">
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>3.1 Understanding Simple Neural Networks</h1>
+                     <span>
+                        In this video, we cover supervised learning in more details.
+                        <ul>
+                           <li>Start by discussing what is a neural network </li>
+                           <li>Learn about deep neural networks </li>
+                           <li>See what are the advantages of using deep neural networks</li>
+                        </ul>
+                     </span>
+                     <div id="video3_1" class="btn btn-small btn-primary watch" data-video="videos/video3_1.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video3_1.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>3.2 Concepts in Neural Network</h1>
+                     <span>
+                        What are the core concepts in Neural Networks?
+                        <ul>
+                           <li>Learn about neurons  </li>
+                           <li>Get to know about a special type of neuron called as a sigmoid neuron </li>
+                           <li>Understand what are activation functions and how the property of different neural networks change based on the activation function</li>
+                        </ul>
+                     </span>
+                     <div id="video3_2" class="btn btn-small btn-primary watch" data-video="videos/video3_2.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video3_2.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>3.3 Working with Deep Neural Networks</h1>
+                     <span>
+                        What are the different steps taken during a deep neural network training?
+                        <ul>
+                           <li>Learn about gradient descent </li>
+                           <li>Understand the ways to pass gradient up and down the neural network </li>
+                           <li>Know about the bias term which helps in getting better results </li>
+                        </ul>
+                     </span>
+                     <div id="video3_3" class="btn btn-small btn-primary watch" data-video="videos/video3_3.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video3_3.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>3.4 Image Classification Using Neural Networks </h1>
+                     <span>
+                        What are the details applied in neural networks?
+                        <ul>
+                           <li>Understand the problem </li>
+                           <li>Create a simple neural network</li>
+                           <li>Train the model and get results </li>
+                        </ul>
+                     </span>
+                     <div id="video3_4" class="btn btn-small btn-primary watch" data-video="videos/video3_4.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video3_4.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>                               
+               </ul>
+            </div>
+            <div class="chapter" id="content-4" style="position: relative; top: -500px; display: none;">
+               <ul class="move">
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>4.1 Model Evaluation</h1>
+                     <span>
+                        What are the techniques to measure model performance?
+                        <ul>
+                           <li>Start by defining the problem </li>
+                           <li>Look at the trade-off between bias and variance </li>
+                           <li>Learn about validation set to be  used while testing our model</li>
+                        </ul>
+                     </span>
+                     <div id="video4_1" class="btn btn-small btn-primary watch" data-video="videos/video4_1.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video4_1.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>4.2 Better Measures than Accuracy</h1>
+                     <span>
+                        What are some of the better ways of getting model performance?
+                        <ul>
+                           <li>Learn about classification metrics</li>
+                           <li>Get to know about confusion metrics</li>
+                           <li>Understand what are regression metrics</li>
+                        </ul>
+                     </span>
+                     <div id="video4_2" class="btn btn-small btn-primary watch" data-video="videos/video4_2.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video4_2.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>4.3 Improving the Models</h1>
+                     <span>
+                        What are the different ways to improve our model?
+                        <ul>
+                           <li>Analyse the cross-entropy cost function </li>
+                           <li>Get an understanding of Regularization </li>
+                           <li>See some other regularization techniques like Dropout and ensemble learning </li>
+                        </ul>
+                     </span>
+                     <div id="video4_3" class="btn btn-small btn-primary watch" data-video="videos/video4_3.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video4_3.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>4.4 Optimizing the Models</h1>
+                     <span>
+                        What is optimization? And what are the problems involved like vanishing gradient problem? 
+                        <ul>
+                           <li>Learn about batching the data into different sized groups </li>
+                           <li>Know about the vanishing/ exploding gradient problem </li>
+                           <li>Get to know one of the ways to prevent vanishing gradient problem </li>
+                        </ul>
+                     </span>
+                     <div id="video4_4" class="btn btn-small btn-primary watch" data-video="videos/video4_4.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video4_4.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>                                
+               </ul>
+            </div>
+            <div class="chapter" id="content-5" style="position: relative; top: -500px; display: none;">
+               <ul class="move">
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>5.1 Using High-Level Layers API to Construct Neural Networks</h1>
+                     <span>
+                        What are the various layers of API? 
+                        <ul>
+                           <li>Revisit neural networks to get a comparison with layers </li>
+                           <li>Get to know about the core API which we have been using so far </li>
+                           <li>We learn about the layers API and see some of its advantages </li>
+                        </ul>
+                     </span>
+                     <div id="video5_1" class="btn btn-small btn-primary watch" data-video="videos/video5_1.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video5_1.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>5.2 Building Advanced Neural Networks with Layers Easily</h1>
+                     <span>
+                        How to build advanced neural networks? What are Convolutional Neural Networks?
+                        <ul>
+                           <li>Start by understanding weight sharing </li>
+                           <li>Learn about convolution neural network which uses the idea of weight sharing </li>
+                           <li>Understand what is max pooling and average pooling </li>
+                        </ul>
+                     </span>
+                     <div id="video5_2" class="btn btn-small btn-primary watch" data-video="videos/video5_2.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video5_2.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>5.3 Detecting Digits Using Layers</h1>
+                     <span>
+                        We go into a hands-on example of using layers. 
+                        <ul>
+                           <li>Define the problem of hand written digit classification</li>
+                           <li>Learn how to use layers </li>
+                           <li>Build a convolutional neural network with just layers </li>
+                        </ul>
+                     </span>
+                     <div id="video5_3" class="btn btn-small btn-primary watch" data-video="videos/video5_3.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video5_3.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>5.4 Building A Classifier Using Layers</h1>
+                     <span>
+                        We look at another hands on example of using layers. 
+                        <ul>
+                           <li>See what is the classification problem </li>
+                           <li>Build our classifier using layers </li>
+                           <li>Use layers to train and test our model </li>
+                        </ul>
+                     </span>
+                     <div id="video5_4" class="btn btn-small btn-primary watch" data-video="videos/video5_4.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video5_4.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>                                
+               </ul>
+            </div>
+            <div class="chapter" id="content-6" style="position: relative; top: -500px; display: none;">
+               <ul class="move">
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>6.1 Importing a Keras Model into TensorFlow.js</h1>
+                     <span>
+                        How to import Keras model into TensorFlow?
+                        <ul>
+                           <li>Learn how TensorFlow.js python convert works </li>
+                           <li>Get to know about the Python API to export directly to TF.js</li>
+                           <li>Understand ways to load the model into TensorFlow.js</li>
+                        </ul>
+                     </span>
+                     <div id="video6_1" class="btn btn-small btn-primary watch" data-video="videos/video6_1.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video6_1.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>6.2 Saving and Loading TensorFlow Models</h1>
+                     <span>
+                        How to save and load our pre-trained model at different locations? 
+                        <ul>
+                           <li>Learn about the importance of saving our model </li>
+                           <li>Know different ways in which we can save our model </li>
+                           <li>See different ways in which we can load the models </li>
+                        </ul>
+                     </span>
+                     <div id="video6_2" class="btn btn-small btn-primary watch" data-video="videos/video6_2.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video6_2.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>6.3 Importing TensorFlow SavedModel into TensorFlow.js</h1>
+                     <span>
+                        In this video, we will learn about ways to load TensorFlow saved models into TensorFlow.js 
+                        <ul>
+                           <li>See how to convert TensorFlow models into TensorFlow.js </li>
+                           <li>Know how to load the TensorFlow model </li>
+                           <li>Learn about running the TensorFlow model </li>
+                        </ul>
+                     </span>
+                     <div id="video6_3" class="btn btn-small btn-primary watch" data-video="videos/video6_3.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video6_3.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>
+                  <li>
+                     <img src="images/image.jpg" class="image-holder"/>
+                     <h1>6.4 Playing PAC-MAN Using a Webcam</h1>
+                     <span>
+                        In this video, we will learn how to use our knowledge so far and create a game which uses image classification 
+                        <ul>
+                           <li>Know about how the data is collected for the game </li>
+                           <li>See how the model is trained on new data </li>
+                           <li>Understand how to use transfer learning to save training time and effort </li>
+                        </ul>
+                     </span>
+                     <div id="video6_4" class="btn btn-small btn-primary watch" data-video="videos/video6_4.mp4" data-poster="images/videoImage.jpg">Watch Video</div>
+                     <a href="videos/video6_4.mp4" class="btn btn-small btn-primary download" target="_blank">Download</a>
+                     <div class="last-hidden">Last Viewed</div>
+                  </li>                  
+               </ul>
+            </div>
+           
+         </div>
+         <div id="video-wrapper">
+            <div id="video-player" class="video">
+            </div>
+            <a href="#" id="largerqt">View Larger</a>
+            <h1></h1>
+            <span></span>
+            <a href="#" class="watch-next-video btn btn-primary  navigation" style="left: 550px;" data-next="" data-video="" data-prev="">Next</a>
+            <a href="#" class="watch-prev-video btn btn-primary  navigation" style="left: 420px;"  data-prev="" data-video="" data-poster="">Prev</a>
+            <div class="btn back-video "><strong>Close</strong>
+            </div>
+         </div>
+      </div>
+      <div class="quicktime-full">
+         <div class="full-player">
+         </div>
+      </div>
+   </body>
+</html>
