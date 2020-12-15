@@ -118,18 +118,6 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"index.js":[function(require,module,exports) {
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -140,15 +128,18 @@ function loadAndPredict() {
 
 function _loadAndPredict() {
   _loadAndPredict = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var img, net, _yield$net$segmentPer, segmentation, canvas, ctx, newImg, newImgData, i, _ref, r, g, b, a, gray, _ref2, _ref3;
-
+    var img, net, segmentation, mask, canvas, ctx;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             img = document.getElementById('image');
             _context.next = 3;
-            return bodyPix.load();
+            return bodyPix.load({
+              architecture: 'MobileNetV1',
+              outputStride: 16,
+              quantBytes: 2
+            });
 
           case 3:
             net = _context.sent;
@@ -156,38 +147,17 @@ function _loadAndPredict() {
             return net.segmentPerson(img);
 
           case 6:
-            _yield$net$segmentPer = _context.sent;
-            segmentation = _yield$net$segmentPer.data;
-            // const { data:imgData } = ctx.getImageData(0, 0, img.width, img.height);
+            segmentation = _context.sent;
+            mask = bodyPix.toMask(segmentation);
+            mask.width = img.width;
+            mask.height = img.height;
             canvas = document.getElementById('canvas');
-            ctx = canvas.getContext('2d');
             canvas.width = img.width;
-            canvas.height = img.height;
-            newImg = ctx.createImageData(img.width, img.height);
-            newImgData = newImg.data;
-
-            for (i = 0; i < segmentation.length; i++) {
-              _ref = [img[i * 4], img[i * 4 + 1], img[i * 4 + 2], img[i * 4 + 3]], r = _ref[0], g = _ref[1], b = _ref[2], a = _ref[3];
-              gray = 0.3 * r + 0.59 * g + 0.11 * b;
-              _ref2 = !segmentation[i] ? [gray, gray, gray, 255] : [r, g, b, a];
-              _ref3 = _slicedToArray(_ref2, 4);
-              newImgData[i * 4] = _ref3[0];
-              newImgData[i * 4 + 1] = _ref3[1];
-              newImgData[i * 4 + 2] = _ref3[2];
-              newImgData[i * 4 + 3] = _ref3[3];
-            }
-
-            ctx.putImageData(newImg, 0, 0); // const mask = bodyPix.toMask(segmentation);
-            // mask.width = img.width;
-            // mask.height = img.height;
-            // const canvas = document.getElementById('canvas');
-            // canvas.width = img.width;
-            // canvas.height = img.height;
-            // // console.log(canvas.width)
+            canvas.height = img.height; // // console.log(canvas.width)
             // // console.log(img.width)
-            // const ctx = canvas.getContext('2d');
-            // ctx.putImageData(mask,0,0);
-            // // ctx.drawImage(mask,0,0,636,358);
+
+            ctx = canvas.getContext('2d');
+            ctx.putImageData(mask, 0, 0); // // ctx.drawImage(mask,0,0,636,358);
             // const opacity = 1;
             // const flipHorizontal = false;
             // const maskBlurAmount = 0;
@@ -197,7 +167,7 @@ function _loadAndPredict() {
             // // // 0.7, allowing for the original image to be visible under.
             // bodyPix.drawMask(canvas, img, mask, opacity,maskBlurAmount,flipHorizontal);
 
-          case 16:
+          case 15:
           case "end":
             return _context.stop();
         }
@@ -236,7 +206,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57524" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62012" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
