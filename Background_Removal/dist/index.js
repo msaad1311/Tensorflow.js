@@ -117,98 +117,74 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"index.js":[function(require,module,exports) {
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+})({"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function loadAndPredict() {
-  return _loadAndPredict.apply(this, arguments);
+  return bundleURL;
 }
 
-function _loadAndPredict() {
-  _loadAndPredict = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var img, net, _yield$net$segmentPer, segmentation, canvas, ctx, newImg, newImgData, i, _ref, r, g, b, a, gray, _ref2, _ref3;
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
 
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            img = document.getElementById('image');
-            _context.next = 3;
-            return bodyPix.load();
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
 
-          case 3:
-            net = _context.sent;
-            _context.next = 6;
-            return net.segmentPerson(img);
+  return '/';
+}
 
-          case 6:
-            _yield$net$segmentPer = _context.sent;
-            segmentation = _yield$net$segmentPer.data;
-            // const { data:imgData } = ctx.getImageData(0, 0, img.width, img.height);
-            canvas = document.getElementById('canvas');
-            ctx = canvas.getContext('2d');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            newImg = ctx.createImageData(img.width, img.height);
-            newImgData = newImg.data;
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
 
-            for (i = 0; i < segmentation.length; i++) {
-              _ref = [img[i * 4], img[i * 4 + 1], img[i * 4 + 2], img[i * 4 + 3]], r = _ref[0], g = _ref[1], b = _ref[2], a = _ref[3];
-              gray = 0.3 * r + 0.59 * g + 0.11 * b;
-              _ref2 = !segmentation[i] ? [gray, gray, gray, 255] : [r, g, b, a];
-              _ref3 = _slicedToArray(_ref2, 4);
-              newImgData[i * 4] = _ref3[0];
-              newImgData[i * 4 + 1] = _ref3[1];
-              newImgData[i * 4 + 2] = _ref3[2];
-              newImgData[i * 4 + 3] = _ref3[3];
-            }
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
 
-            ctx.putImageData(newImg, 0, 0); // const mask = bodyPix.toMask(segmentation);
-            // mask.width = img.width;
-            // mask.height = img.height;
-            // const canvas = document.getElementById('canvas');
-            // canvas.width = img.width;
-            // canvas.height = img.height;
-            // // console.log(canvas.width)
-            // // console.log(img.width)
-            // const ctx = canvas.getContext('2d');
-            // ctx.putImageData(mask,0,0);
-            // // ctx.drawImage(mask,0,0,636,358);
-            // const opacity = 1;
-            // const flipHorizontal = false;
-            // const maskBlurAmount = 0;
-            // // const canvas = document.getElementById('canvas');
-            // // // Draw the mask image on top of the original image onto a canvas.
-            // // // The colored part image will be drawn semi-transparent, with an opacity of
-            // // // 0.7, allowing for the original image to be visible under.
-            // bodyPix.drawMask(canvas, img, mask, opacity,maskBlurAmount,flipHorizontal);
+function updateLink(link) {
+  var newLink = link.cloneNode();
 
-          case 16:
-          case "end":
-            return _context.stop();
-        }
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
       }
-    }, _callee);
-  }));
-  return _loadAndPredict.apply(this, arguments);
+    }
+
+    cssTimeout = null;
+  }, 50);
 }
 
-loadAndPredict();
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+module.exports = reloadCSS;
+},{"./bundle-url":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -412,5 +388,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=/Background_Removal.e31bb0bc.js.map
+},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
+//# sourceMappingURL=/index.js.map
