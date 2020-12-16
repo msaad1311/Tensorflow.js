@@ -1,5 +1,12 @@
 const img = document.getElementById('image');
 const bgs = document.getElementById('image_back');
+let effect = false;
+
+if (effect){
+  bgs.style.filter = 'blur(3px)';
+}
+
+
 async function loadAndPredict() {
     const net = await bodyPix.load({
         architecture: 'MobileNetV1',
@@ -32,12 +39,7 @@ async function frameMerger(background_rm){
   ctx.drawImage(img, 0, 0, img.width, img.height);
   ctx.globalCompositeOperation = 'destination-atop';
   ctx.drawImage(bgs, 0, 0,img.width,img.height);
-  
-
-
-
-
-}
+  }
 
    
 loadAndPredict();

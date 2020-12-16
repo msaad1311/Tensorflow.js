@@ -124,6 +124,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var img = document.getElementById('image');
 var bgs = document.getElementById('image_back');
+var effect = false;
+
+if (effect) {
+  bgs.style.filter = 'blur(3px)';
+}
 
 function loadAndPredict() {
   return _loadAndPredict.apply(this, arguments);
