@@ -1,9 +1,9 @@
 const img = document.getElementById('image');
 const bgs = document.getElementById('image_back');
-let effect = false;
+var effect = true;
 
 if (effect){
-  bgs.style.filter = 'blur(3px)';
+  bgs.style.filter = 'grayscale(1)';
 }
 
 
@@ -29,6 +29,7 @@ async function frameMerger(background_rm){
   }
   // console.log(bgs);
   const canvas = document.getElementById('canvas');
+  
   canvas.width = img.width;
   canvas.height = img.height;
   let ctx = canvas.getContext('2d');
@@ -38,7 +39,9 @@ async function frameMerger(background_rm){
   // // ctx.putImageData(img, 0, 0);
   ctx.drawImage(img, 0, 0, img.width, img.height);
   ctx.globalCompositeOperation = 'destination-atop';
-  ctx.drawImage(bgs, 0, 0,img.width,img.height);
+  ctx.filter = 'blur(3px)';
+  ctx.drawImage(bgs, 0, 0,bgs.width,bgs.height);
+  
   }
 
    

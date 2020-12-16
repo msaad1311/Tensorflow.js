@@ -124,10 +124,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var img = document.getElementById('image');
 var bgs = document.getElementById('image_back');
-var effect = false;
+var effect = true;
 
 if (effect) {
-  bgs.style.filter = 'blur(3px)';
+  bgs.style.filter = 'grayscale(1)';
 }
 
 function loadAndPredict() {
@@ -214,9 +214,10 @@ function _frameMerger() {
 
             ctx.drawImage(img, 0, 0, img.width, img.height);
             ctx.globalCompositeOperation = 'destination-atop';
-            ctx.drawImage(bgs, 0, 0, img.width, img.height);
+            ctx.filter = 'blur(3px)';
+            ctx.drawImage(bgs, 0, 0, bgs.width, bgs.height);
 
-          case 12:
+          case 13:
           case "end":
             return _context2.stop();
         }
