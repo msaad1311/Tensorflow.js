@@ -124,8 +124,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var img = document.getElementById('image');
 var bgs = document.getElementById('image_back');
-var blurEffect;
 var effect_blur = document.getElementById('blurrer');
+var effect_gray = document.getElementById('grayer');
+var blurEffect = false;
+var grayEffect = false;
 
 function loadAndPredict() {
   return _loadAndPredict.apply(this, arguments);
@@ -169,9 +171,30 @@ function _loadAndPredict() {
               a: 0
             };
             backgroundDarkeningMask = bodyPix.toMask(segmentation, foregroundColor, backgroundColor, false);
-            frameMerger(backgroundDarkeningMask);
+            effect_blur.addEventListener('change', function () {
+              if (effect_blur.checked) {
+                blurEffect = true;
+                frameMerger(backgroundDarkeningMask, blurEffect, grayEffect);
+                console.log('it is on');
+              } else {
+                blurEffect = false;
+                frameMerger(backgroundDarkeningMask, blurEffect, grayEffect);
+                console.log('it is off');
+              }
+            });
+            effect_gray.addEventListener('change', function () {
+              if (effect_gray.checked) {
+                grayEffect = true;
+                frameMerger(backgroundDarkeningMask, blurEffect, grayEffect);
+                console.log('it is on');
+              } else {
+                grayEffect = false;
+                frameMerger(backgroundDarkeningMask, blurEffect, grayEffect);
+                console.log('it is off');
+              }
+            });
 
-          case 10:
+          case 11:
           case "end":
             return _context.stop();
         }
@@ -181,12 +204,12 @@ function _loadAndPredict() {
   return _loadAndPredict.apply(this, arguments);
 }
 
-function frameMerger(_x) {
+function frameMerger(_x, _x2, _x3) {
   return _frameMerger.apply(this, arguments);
 }
 
 function _frameMerger() {
-  _frameMerger = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(background_rm) {
+  _frameMerger = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(background_rm, blurr, grayy) {
     var canvas, ctx;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
@@ -211,18 +234,23 @@ function _frameMerger() {
 
             ctx.drawImage(img, 0, 0, img.width, img.height);
             ctx.globalCompositeOperation = 'destination-atop';
-            effect_blur.addEventListener('change', function () {
-              if (effect_blur.checked) {
-                ctx.filter = 'blur(3px)';
-                console.log('it is on');
-                ctx.drawImage(bgs, 0, 0, bgs.width, bgs.height);
-              } else {
-                console.log('it is off');
-                ctx.drawImage(bgs, 0, 0, bgs.width, bgs.height);
-              }
-            });
 
-          case 12:
+            if (blurr) {
+              ctx.filter = 'blur(3px)';
+            }
+
+            if (grayy) {
+              ctx.filter = 'grayscale(1)';
+            }
+
+            if (blurr && grayy) {
+              ctx.filter = 'blur(3px)';
+              ctx.filter = 'grayscale(1)';
+            }
+
+            ctx.drawImage(bgs, 0, 0, bgs.width, bgs.height);
+
+          case 15:
           case "end":
             return _context2.stop();
         }
@@ -261,7 +289,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56028" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50436" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,7 +1,9 @@
 const img = document.getElementById('image');
 const bgs = document.getElementById('image_back');
-let blurEffect;
 let effect_blur = document.getElementById('blurrer');
+let effect_gray = document.getElementById('grayer');
+let blurEffect=false;
+let grayEffect=false;
 
 async function loadAndPredict() {
     const net = await bodyPix.load({
@@ -17,9 +19,32 @@ async function loadAndPredict() {
     const foregroundColor = { r: 0, g: 0, b: 0, a: 255 };
     const backgroundColor = { r: 0, g: 0, b: 0, a: 0 };
     const backgroundDarkeningMask = bodyPix.toMask(segmentation, foregroundColor, backgroundColor, false);
-    frameMerger(backgroundDarkeningMask)
+    effect_blur.addEventListener('change', function () {
+      if (effect_blur.checked) {
+        blurEffect=true;
+        frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
+        console.log('it is on');
+      } else {
+        blurEffect=false;
+        frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
+        console.log('it is off');
+      }
+    })
+
+    effect_gray.addEventListener('change', function () {
+      if (effect_gray.checked) {
+        grayEffect=true;
+        frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
+        console.log('it is on');
+      } else {
+        grayEffect=false;
+        frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
+        console.log('it is off');
+      }
+    })
+    
     }
-async function frameMerger(background_rm){
+async function frameMerger(background_rm,blurr,grayy){
   if (!background_rm){
     return
   }
@@ -36,17 +61,17 @@ async function frameMerger(background_rm){
   // // ctx.putImageData(img, 0, 0);
   ctx.drawImage(img, 0, 0, img.width, img.height);
   ctx.globalCompositeOperation = 'destination-atop';
-  effect_blur.addEventListener('change', function () {
-    if (effect_blur.checked) {
-      ctx.filter='blur(3px)';
-      console.log('it is on');
-      ctx.drawImage(bgs, 0, 0,bgs.width,bgs.height);
-    } else {
-      console.log('it is off');
-      ctx.drawImage(bgs, 0, 0,bgs.width,bgs.height);
-    }
-  })
-    
+  if (blurr){
+    ctx.filter='blur(3px)';
+  }
+  if (grayy){
+    ctx.filter='grayscale(1)';
+  }
+  if (blurr && grayy){
+    ctx.filter='blur(3px)';
+    ctx.filter='grayscale(1)';
+  }
+  ctx.drawImage(bgs, 0, 0,bgs.width,bgs.height);
   
   }
 
