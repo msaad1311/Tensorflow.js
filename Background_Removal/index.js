@@ -1,11 +1,7 @@
 const img = document.getElementById('image');
 const bgs = document.getElementById('image_back');
-var effect = true;
-
-if (effect){
-  bgs.style.filter = 'grayscale(1)';
-}
-
+let blurEffect;
+let effect_blur = document.getElementById('blurrer');
 
 async function loadAndPredict() {
     const net = await bodyPix.load({
@@ -33,14 +29,24 @@ async function frameMerger(background_rm){
   canvas.width = img.width;
   canvas.height = img.height;
   let ctx = canvas.getContext('2d');
+  
   ctx.globalCompositeOperation='destination-over';
   ctx.putImageData(background_rm, 0, 0);
   ctx.globalCompositeOperation = 'source-in';
   // // ctx.putImageData(img, 0, 0);
   ctx.drawImage(img, 0, 0, img.width, img.height);
   ctx.globalCompositeOperation = 'destination-atop';
-  ctx.filter = 'blur(3px)';
-  ctx.drawImage(bgs, 0, 0,bgs.width,bgs.height);
+  effect_blur.addEventListener('change', function () {
+    if (effect_blur.checked) {
+      ctx.filter='blur(3px)';
+      console.log('it is on');
+      ctx.drawImage(bgs, 0, 0,bgs.width,bgs.height);
+    } else {
+      console.log('it is off');
+      ctx.drawImage(bgs, 0, 0,bgs.width,bgs.height);
+    }
+  })
+    
   
   }
 
