@@ -122,52 +122,54 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+var img = document.getElementById('image');
+var bgs = document.getElementById('image_back');
+
 function loadAndPredict() {
   return _loadAndPredict.apply(this, arguments);
 }
 
 function _loadAndPredict() {
   _loadAndPredict = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var img, net, segmentation, mask, canvas, ctx;
+    var net, segmentation, foregroundColor, backgroundColor, backgroundDarkeningMask;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            img = document.getElementById('image');
-            _context.next = 3;
+            _context.next = 2;
             return bodyPix.load({
               architecture: 'MobileNetV1',
               outputStride: 16,
-              quantBytes: 2
+              quantBytes: 4
             });
 
-          case 3:
+          case 2:
             net = _context.sent;
-            _context.next = 6;
-            return net.segmentPerson(img);
+            _context.next = 5;
+            return net.segmentPerson(img, {
+              flipHorizontal: false,
+              internalResolution: 'full',
+              segmentationThreshold: 0.8
+            });
 
-          case 6:
+          case 5:
             segmentation = _context.sent;
-            mask = bodyPix.toMask(segmentation);
-            mask.width = img.width;
-            mask.height = img.height;
-            canvas = document.getElementById('canvas');
-            canvas.width = img.width;
-            canvas.height = img.height; // // console.log(canvas.width)
-            // // console.log(img.width)
+            foregroundColor = {
+              r: 0,
+              g: 0,
+              b: 0,
+              a: 255
+            };
+            backgroundColor = {
+              r: 0,
+              g: 0,
+              b: 0,
+              a: 0
+            };
+            backgroundDarkeningMask = bodyPix.toMask(segmentation, foregroundColor, backgroundColor, false);
+            frameMerger(backgroundDarkeningMask);
 
-            ctx = canvas.getContext('2d');
-            ctx.putImageData(mask, 0, 0); // // ctx.drawImage(mask,0,0,636,358);
-            // const opacity = 1;
-            // const flipHorizontal = false;
-            // const maskBlurAmount = 0;
-            // // const canvas = document.getElementById('canvas');
-            // // // Draw the mask image on top of the original image onto a canvas.
-            // // // The colored part image will be drawn semi-transparent, with an opacity of
-            // // // 0.7, allowing for the original image to be visible under.
-            // bodyPix.drawMask(canvas, img, mask, opacity,maskBlurAmount,flipHorizontal);
-
-          case 15:
+          case 10:
           case "end":
             return _context.stop();
         }
@@ -175,6 +177,48 @@ function _loadAndPredict() {
     }, _callee);
   }));
   return _loadAndPredict.apply(this, arguments);
+}
+
+function frameMerger(_x) {
+  return _frameMerger.apply(this, arguments);
+}
+
+function _frameMerger() {
+  _frameMerger = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(background_rm) {
+    var canvas, ctx;
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            if (background_rm) {
+              _context2.next = 2;
+              break;
+            }
+
+            return _context2.abrupt("return");
+
+          case 2:
+            // console.log(bgs);
+            canvas = document.getElementById('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx = canvas.getContext('2d');
+            ctx.globalCompositeOperation = 'destination-over';
+            ctx.putImageData(background_rm, 0, 0);
+            ctx.globalCompositeOperation = 'source-in'; // // ctx.putImageData(img, 0, 0);
+
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            ctx.globalCompositeOperation = 'destination-atop';
+            ctx.drawImage(bgs, 0, 0, img.width, img.height);
+
+          case 12:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return _frameMerger.apply(this, arguments);
 }
 
 loadAndPredict();
@@ -206,7 +250,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62012" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56028" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

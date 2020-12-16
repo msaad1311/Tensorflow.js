@@ -1,33 +1,43 @@
+const img = document.getElementById('image');
+const bgs = document.getElementById('image_back');
 async function loadAndPredict() {
-    const img = document.getElementById('image');
     const net = await bodyPix.load({
         architecture: 'MobileNetV1',
         outputStride: 16,
-        quantBytes: 2
+        quantBytes: 4
       });
-    const segmentation = await net.segmentPerson(img)
-
-
-    const mask = bodyPix.toMask(segmentation);
-    mask.width = img.width;
-    mask.height = img.height;
-    const canvas = document.getElementById('canvas');
-    canvas.width = img.width;
-    canvas.height = img.height;
-    // // console.log(canvas.width)
-    // // console.log(img.width)
-    const ctx = canvas.getContext('2d');
-    ctx.putImageData(mask,0,0);
-    // // ctx.drawImage(mask,0,0,636,358);
-
-    // const opacity = 1;
-    // const flipHorizontal = false;
-    // const maskBlurAmount = 0;
-    // // const canvas = document.getElementById('canvas');
-    // // // Draw the mask image on top of the original image onto a canvas.
-    // // // The colored part image will be drawn semi-transparent, with an opacity of
-    // // // 0.7, allowing for the original image to be visible under.
-    // bodyPix.drawMask(canvas, img, mask, opacity,maskBlurAmount,flipHorizontal);
+    const segmentation = await net.segmentPerson(img, {
+        flipHorizontal: false,
+        internalResolution: 'full',
+        segmentationThreshold: 0.8
+    });
+    const foregroundColor = { r: 0, g: 0, b: 0, a: 255 };
+    const backgroundColor = { r: 0, g: 0, b: 0, a: 0 };
+    const backgroundDarkeningMask = bodyPix.toMask(segmentation, foregroundColor, backgroundColor, false);
+    frameMerger(backgroundDarkeningMask)
     }
+async function frameMerger(background_rm){
+  if (!background_rm){
+    return
+  }
+  // console.log(bgs);
+  const canvas = document.getElementById('canvas');
+  canvas.width = img.width;
+  canvas.height = img.height;
+  let ctx = canvas.getContext('2d');
+  ctx.globalCompositeOperation='destination-over';
+  ctx.putImageData(background_rm, 0, 0);
+  ctx.globalCompositeOperation = 'source-in';
+  // // ctx.putImageData(img, 0, 0);
+  ctx.drawImage(img, 0, 0, img.width, img.height);
+  ctx.globalCompositeOperation = 'destination-atop';
+  ctx.drawImage(bgs, 0, 0,img.width,img.height);
+  
+
+
+
+
+}
+
    
 loadAndPredict();
