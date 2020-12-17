@@ -1,9 +1,5 @@
-function backer(t){
-  console.log('hello');
-  // const bgs = document.getElementById(id);
-}
+let bgs = document.getElementById('image');
 const img = document.getElementById('image');
-const bgs = document.getElementById('image_back');
 let effect_blur = document.getElementById('blurrer');
 let effect_gray = document.getElementById('grayer');
 let blurEffect=false;
@@ -24,20 +20,16 @@ async function loadAndPredict() {
     const backgroundColor = { r: 0, g: 0, b: 0, a: 0 };
     const backgroundDarkeningMask = bodyPix.toMask(segmentation, foregroundColor, backgroundColor, false);
     
-    // if (!(blurEffect && grayEffect)){
-    //   frameMerger(img,blurEffect,grayEffect);
-    // }
+    if (!(blurEffect && grayEffect)){
+      frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
+    }
     effect_blur.addEventListener('change', function () {
       if (effect_blur.checked) {
         blurEffect=true;
         frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
-        // console.log('it is on');
-        // console.log(grayEffect);
       } else {
         blurEffect=false;
         frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
-        // console.log('it is off');
-        // console.log(grayEffect);
       }
     })
 
@@ -45,15 +37,19 @@ async function loadAndPredict() {
       if (effect_gray.checked) {
         grayEffect=true;
         frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
-        // console.log('it is on');
-        // console.log(blurEffect);
       } else {
         grayEffect=false;
         frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
-        // // console.log('it is off');
-        // console.log(blurEffect);
       }
     })
+    backImages=document.getElementsByClassName("backgrounds")
+    for (backgroundImages of backImages){
+      backgroundImages.addEventListener('click',function(){
+      bgs = document.getElementById(this.id);
+      bgs.style.opacity="1";
+      frameMerger(backgroundDarkeningMask,blurEffect,grayEffect)
+      })
+    }
     
     }
 function frameMerger(background_rm,blurr,grayy){
@@ -82,7 +78,7 @@ function frameMerger(background_rm,blurr,grayy){
   if (blurr && grayy){
     ctx.filter='blur(3px) grayscale(1)';
   }
-  ctx.drawImage(bgs, 0, 0,bgs.width,bgs.height);
+  ctx.drawImage(bgs, 0, 0,img.width,img.height);
   
   }
 

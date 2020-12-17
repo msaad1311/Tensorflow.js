@@ -117,151 +117,14 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"index.js":[function(require,module,exports) {
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-var bgs = document.getElementById('image');
-var img = document.getElementById('image');
-var effect_blur = document.getElementById('blurrer');
-var effect_gray = document.getElementById('grayer');
-var blurEffect = false;
-var grayEffect = false;
-
-function loadAndPredict() {
-  return _loadAndPredict.apply(this, arguments);
+})({"testing.js":[function(require,module,exports) {
+function foo() {
+  console.log('hi there');
 }
 
-function _loadAndPredict() {
-  _loadAndPredict = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var net, segmentation, foregroundColor, backgroundColor, backgroundDarkeningMask, _iterator, _step;
-
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return bodyPix.load({
-              architecture: 'MobileNetV1',
-              outputStride: 16,
-              quantBytes: 4
-            });
-
-          case 2:
-            net = _context.sent;
-            _context.next = 5;
-            return net.segmentPerson(img, {
-              flipHorizontal: false,
-              internalResolution: 'full',
-              segmentationThreshold: 0.8
-            });
-
-          case 5:
-            segmentation = _context.sent;
-            foregroundColor = {
-              r: 0,
-              g: 0,
-              b: 0,
-              a: 255
-            };
-            backgroundColor = {
-              r: 0,
-              g: 0,
-              b: 0,
-              a: 0
-            };
-            backgroundDarkeningMask = bodyPix.toMask(segmentation, foregroundColor, backgroundColor, false);
-
-            if (!(blurEffect && grayEffect)) {
-              frameMerger(backgroundDarkeningMask, blurEffect, grayEffect);
-            }
-
-            effect_blur.addEventListener('change', function () {
-              if (effect_blur.checked) {
-                blurEffect = true;
-                frameMerger(backgroundDarkeningMask, blurEffect, grayEffect);
-              } else {
-                blurEffect = false;
-                frameMerger(backgroundDarkeningMask, blurEffect, grayEffect);
-              }
-            });
-            effect_gray.addEventListener('change', function () {
-              if (effect_gray.checked) {
-                grayEffect = true;
-                frameMerger(backgroundDarkeningMask, blurEffect, grayEffect);
-              } else {
-                grayEffect = false;
-                frameMerger(backgroundDarkeningMask, blurEffect, grayEffect);
-              }
-            });
-            backImages = document.getElementsByClassName("backgrounds");
-            _iterator = _createForOfIteratorHelper(backImages);
-
-            try {
-              for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                backgroundImages = _step.value;
-                backgroundImages.addEventListener('click', function () {
-                  bgs = document.getElementById(this.id);
-                  bgs.style.opacity = "1";
-                  frameMerger(backgroundDarkeningMask, blurEffect, grayEffect);
-                });
-              }
-            } catch (err) {
-              _iterator.e(err);
-            } finally {
-              _iterator.f();
-            }
-
-          case 15:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _loadAndPredict.apply(this, arguments);
-}
-
-function frameMerger(background_rm, blurr, grayy) {
-  if (!background_rm) {
-    return;
-  } // console.log(bgs);
-
-
-  var canvas = document.getElementById('canvas');
-  canvas.width = img.width;
-  canvas.height = img.height;
-  var ctx = canvas.getContext('2d');
-  ctx.globalCompositeOperation = 'destination-over';
-  ctx.putImageData(background_rm, 0, 0);
-  ctx.globalCompositeOperation = 'source-in'; // // ctx.putImageData(img, 0, 0);
-
-  ctx.drawImage(img, 0, 0, img.width, img.height);
-  ctx.globalCompositeOperation = 'destination-atop';
-
-  if (blurr) {
-    ctx.filter = 'blur(3px)';
-  }
-
-  if (grayy) {
-    ctx.filter = 'grayscale(1)';
-  }
-
-  if (blurr && grayy) {
-    ctx.filter = 'blur(3px) grayscale(1)';
-  }
-
-  ctx.drawImage(bgs, 0, 0, img.width, img.height);
-}
-
-loadAndPredict();
+window.onload = function () {
+  document.getElementById("cxolosseum").onclick = foo;
+};
 },{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -466,5 +329,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=/Background_Removal.e31bb0bc.js.map
+},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","testing.js"], null)
+//# sourceMappingURL=/testing.3e442874.js.map
