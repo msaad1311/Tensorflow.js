@@ -1,3 +1,7 @@
+function backer(t){
+  console.log('hello');
+  // const bgs = document.getElementById(id);
+}
 const img = document.getElementById('image');
 const bgs = document.getElementById('image_back');
 let effect_blur = document.getElementById('blurrer');
@@ -19,15 +23,21 @@ async function loadAndPredict() {
     const foregroundColor = { r: 0, g: 0, b: 0, a: 255 };
     const backgroundColor = { r: 0, g: 0, b: 0, a: 0 };
     const backgroundDarkeningMask = bodyPix.toMask(segmentation, foregroundColor, backgroundColor, false);
+    
+    // if (!(blurEffect && grayEffect)){
+    //   frameMerger(img,blurEffect,grayEffect);
+    // }
     effect_blur.addEventListener('change', function () {
       if (effect_blur.checked) {
         blurEffect=true;
         frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
-        console.log('it is on');
+        // console.log('it is on');
+        // console.log(grayEffect);
       } else {
         blurEffect=false;
         frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
-        console.log('it is off');
+        // console.log('it is off');
+        // console.log(grayEffect);
       }
     })
 
@@ -35,16 +45,18 @@ async function loadAndPredict() {
       if (effect_gray.checked) {
         grayEffect=true;
         frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
-        console.log('it is on');
+        // console.log('it is on');
+        // console.log(blurEffect);
       } else {
         grayEffect=false;
         frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
-        console.log('it is off');
+        // // console.log('it is off');
+        // console.log(blurEffect);
       }
     })
     
     }
-async function frameMerger(background_rm,blurr,grayy){
+function frameMerger(background_rm,blurr,grayy){
   if (!background_rm){
     return
   }
@@ -68,8 +80,7 @@ async function frameMerger(background_rm,blurr,grayy){
     ctx.filter='grayscale(1)';
   }
   if (blurr && grayy){
-    ctx.filter='blur(3px)';
-    ctx.filter='grayscale(1)';
+    ctx.filter='blur(3px) grayscale(1)';
   }
   ctx.drawImage(bgs, 0, 0,bgs.width,bgs.height);
   
