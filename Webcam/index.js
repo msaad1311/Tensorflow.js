@@ -77,6 +77,7 @@ async function body_segment() {
     effect_blur.addEventListener("change", function () {
       if (effect_blur.checked) {
         blurEffect = true;
+        // bgs.style.filter = "blur(3px)";
       } else {
         blurEffect = false;
       }
@@ -92,10 +93,10 @@ async function body_segment() {
     draw.putImageData(backgroundDarkeningMask, 0, 0);
     draw.globalCompositeOperation = "source-in";
     draw.drawImage(frame, 0, 0, frame.width, frame.height);
-    draw.globalCompositeOperation = "destination-atop";
+    draw.globalCompositeOperation = "destination-over";
     if (blurEffect) {
+        // bgs.style.filter = 'blur(3px)';
       draw.filter = "blur(3px)";
-      blurEffect = false;
     }
     // if (grayEffect) {
     //   draw.filter = "grayscale(1)";
