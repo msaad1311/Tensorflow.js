@@ -292,9 +292,9 @@ function _body_segment() {
 
             effect_blur.addEventListener("change", function () {
               if (effect_blur.checked) {
-                blurEffect = true; // bgs.style.filter = "blur(3px)";
+                blurEffect = true;
               } else {
-                blurEffect = false; // bgs.style.filter = "blur(0px)"
+                blurEffect = false;
               }
             }); // frameMerger(backgroundDarkeningMask,false,false,frame)
             // console.log(result.width)

@@ -77,10 +77,8 @@ async function body_segment() {
     effect_blur.addEventListener("change", function () {
       if (effect_blur.checked) {
         blurEffect = true;
-        // bgs.style.filter = "blur(3px)";
       } else {
         blurEffect = false;
-        // bgs.style.filter = "blur(0px)"
       }
     });
     // frameMerger(backgroundDarkeningMask,false,false,frame)
@@ -97,7 +95,7 @@ async function body_segment() {
     draw.globalCompositeOperation = "destination-atop";
     if (blurEffect) {
       draw.filter = "blur(3px)";
-      blurEffect=false;
+      blurEffect = false;
     }
     // if (grayEffect) {
     //   draw.filter = "grayscale(1)";
