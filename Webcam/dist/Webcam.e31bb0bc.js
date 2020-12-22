@@ -128,15 +128,15 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var imgs = document.getElementById('webcam');
-var canvas = document.getElementById('canvas');
+var imgs = document.getElementById("webcam");
+var canvas = document.getElementById("canvas");
 canvas.width = imgs.width;
 canvas.height = imgs.height;
-var draw = canvas.getContext('2d'); // const webcam = new Webcam(img, 'user', canvasElement);
+var draw = canvas.getContext("2d"); // const webcam = new Webcam(img, 'user', canvasElement);
 
-var bgs = document.getElementById('webcam');
-var effect_blur = document.getElementById('blurrer');
-var effect_gray = document.getElementById('grayer');
+var bgs = document.getElementById("webcam");
+var effect_blur = document.getElementById("blurrer");
+var effect_gray = document.getElementById("grayer");
 var blurEffect = false;
 var grayEffect = false;
 video = document.getElementById("webcam");
@@ -153,10 +153,10 @@ main();
 
 function main() {
   if (video.readyState == 4) {
-    console.log('video is ready for processing');
+    console.log("video is ready for processing");
     body_segment();
   } else {
-    console.log('nope it is not ready yet');
+    console.log("nope it is not ready yet");
     setTimeout(main, 1000 / 30);
   }
 }
@@ -219,11 +219,11 @@ function body_segment() {
 
 function _body_segment() {
   _body_segment = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var frame, canvas, draw, model, _loop;
+    var frame, canvas, draw, model, result, foregroundColor, backgroundColor, backgroundDarkeningMask, _iterator, _step;
 
-    return regeneratorRuntime.wrap(function _callee$(_context2) {
+    return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context.prev = _context.next) {
           case 0:
             frame = document.getElementById("webcam"); // load HTML canvas
 
@@ -234,95 +234,103 @@ function _body_segment() {
 
             console.log(frame.width); // load body segmentation model
 
-            _context2.next = 8;
+            _context.next = 8;
             return bodyPix.load({
-              architecture: 'ResNet50',
-              outputStride: 32,
+              architecture: "ResNet50",
+              outputStride: 16,
               multiplier: 1,
-              quantBytes: 2
+              quantBytes: 4
             });
 
           case 8:
-            model = _context2.sent;
-            _loop = /*#__PURE__*/regeneratorRuntime.mark(function _loop() {
-              var result, foregroundColor, backgroundColor, backgroundDarkeningMask, _iterator, _step;
+            model = _context.sent;
 
-              return regeneratorRuntime.wrap(function _loop$(_context) {
-                while (1) {
-                  switch (_context.prev = _context.next) {
-                    case 0:
-                      _context.next = 2;
-                      return model.segmentPerson(frame, {
-                        flipHorizontal: false,
-                        internalResolution: 'low',
-                        segmentationThreshold: 0.4
-                      });
-
-                    case 2:
-                      result = _context.sent;
-                      foregroundColor = {
-                        r: 0,
-                        g: 0,
-                        b: 0,
-                        a: 255
-                      };
-                      backgroundColor = {
-                        r: 0,
-                        g: 0,
-                        b: 0,
-                        a: 0
-                      };
-                      backgroundDarkeningMask = bodyPix.toMask(result, foregroundColor, backgroundColor, false);
-                      backImages = document.getElementsByClassName("backgrounds");
-                      _iterator = _createForOfIteratorHelper(backImages);
-
-                      try {
-                        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                          backgroundImages = _step.value;
-                          backgroundImages.addEventListener('click', function () {
-                            bgs = document.getElementById(this.id);
-                            bgs.style.opacity = "1";
-                            frameMerger(backgroundDarkeningMask, blurEffect, grayEffect, frame);
-                          });
-                        } // frameMerger(backgroundDarkeningMask,false,false,frame)
-                        // console.log(result.width)
-                        // console.log(backgroundDarkeningMask)
-                        // draw.putImageData(backgroundDarkeningMask,0,0);
-                        // loop to process the next frame
-                        // console.log('next frame')
-
-                      } catch (err) {
-                        _iterator.e(err);
-                      } finally {
-                        _iterator.f();
-                      }
-
-                      _context.next = 11;
-                      return tf.nextFrame();
-
-                    case 11:
-                    case "end":
-                      return _context.stop();
-                  }
-                }
-              }, _loop);
-            });
-
-          case 10:
+          case 9:
             if (!1) {
-              _context2.next = 14;
+              _context.next = 31;
               break;
             }
 
-            return _context2.delegateYield(_loop(), "t0", 12);
+            _context.next = 12;
+            return model.segmentPerson(frame, {
+              flipHorizontal: false,
+              internalResolution: "medium",
+              segmentationThreshold: 0.75
+            });
 
           case 12:
-            _context2.next = 10;
+            result = _context.sent;
+            foregroundColor = {
+              r: 0,
+              g: 0,
+              b: 0,
+              a: 255
+            };
+            backgroundColor = {
+              r: 0,
+              g: 0,
+              b: 0,
+              a: 0
+            };
+            backgroundDarkeningMask = bodyPix.toMask(result, foregroundColor, backgroundColor, false);
+            backImages = document.getElementsByClassName("backgrounds");
+            _iterator = _createForOfIteratorHelper(backImages);
+
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                backgroundImages = _step.value;
+                backgroundImages.addEventListener("click", function () {
+                  bgs = document.getElementById(this.id);
+                  bgs.style.opacity = "1"; // frameMerger(backgroundDarkeningMask,blurEffect,grayEffect,frame)
+                });
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
+
+            effect_blur.addEventListener("change", function () {
+              if (effect_blur.checked) {
+                blurEffect = true; // bgs.style.filter = "blur(3px)";
+              } else {
+                blurEffect = false; // bgs.style.filter = "blur(0px)"
+              }
+            }); // frameMerger(backgroundDarkeningMask,false,false,frame)
+            // console.log(result.width)
+            // console.log(backgroundDarkeningMask)
+            // draw.putImageData(backgroundDarkeningMask,0,0);
+            // loop to process the next frame
+            // console.log('next frame')
+
+            draw.globalCompositeOperation = "destination-over";
+            draw.putImageData(backgroundDarkeningMask, 0, 0);
+            draw.globalCompositeOperation = "source-in";
+            draw.drawImage(frame, 0, 0, frame.width, frame.height);
+            draw.globalCompositeOperation = "destination-atop";
+
+            if (blurEffect) {
+              draw.filter = "blur(3px)";
+              blurEffect = false;
+            } // if (grayEffect) {
+            //   draw.filter = "grayscale(1)";
+            // }
+            // if (blurEffect && grayEffect) {
+            //   draw.filter = "blur(3px) grayscale(1)";
+            // }
+
+
+            draw.drawImage(bgs, 0, 0, frame.width, frame.height);
+            _context.next = 29;
+            return tf.nextFrame();
+
+          case 29:
+            _context.next = 9;
             break;
 
-          case 14:
+          case 31:
           case "end":
-            return _context2.stop();
+            return _context.stop();
         }
       }
     }, _callee);
@@ -339,13 +347,13 @@ function frameMerger(background_rm, blurr, grayy, img) {
   //   canvas.height = img.height;
 
 
-  var draw = canvas.getContext('2d');
-  draw.globalCompositeOperation = 'destination-over';
+  var draw = canvas.getContext("2d");
+  draw.globalCompositeOperation = "destination-over";
   draw.putImageData(background_rm, 0, 0);
-  draw.globalCompositeOperation = 'source-in'; //   // // ctx.putImageData(img, 0, 0);
+  draw.globalCompositeOperation = "source-in"; //   // // ctx.putImageData(img, 0, 0);
 
   draw.drawImage(img, 0, 0, img.width, img.height);
-  draw.globalCompositeOperation = 'destination-atop'; //   if (blurr){
+  draw.globalCompositeOperation = "destination-atop"; //   if (blurr){
   //     draw.filter='blur(3px)';
   //   }
   //   if (grayy){
