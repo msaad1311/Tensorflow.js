@@ -118,167 +118,244 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"index.js":[function(require,module,exports) {
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var img = document.getElementById('webcam');
-var canvasElement = document.getElementById('canvas'); // const webcam = new Webcam(img, 'user', canvasElement);
+var imgs = document.getElementById('webcam');
+var canvas = document.getElementById('canvas');
+canvas.width = imgs.width;
+canvas.height = imgs.height;
+var draw = canvas.getContext('2d'); // const webcam = new Webcam(img, 'user', canvasElement);
 
 var bgs = document.getElementById('webcam');
 var effect_blur = document.getElementById('blurrer');
 var effect_gray = document.getElementById('grayer');
 var blurEffect = false;
 var grayEffect = false;
+video = document.getElementById("webcam");
 
-function startVideoStream() {
+if (navigator.mediaDevices.getUserMedia) {
   navigator.mediaDevices.getUserMedia({
-    video: true,
-    audio: false
+    video: true
   }).then(function (stream) {
-    img.srcObject = stream;
-  }).catch(function (err) {
-    alert("Following error occured: ".concat(err));
+    video.srcObject = stream;
   });
+}
 
-  if (img.readyState == 4) {
-    console.log("video is ready for processing..");
+main();
+
+function main() {
+  if (video.readyState == 4) {
+    console.log('video is ready for processing');
+    body_segment();
   } else {
-    console.log("nope, not ready yet..");
-    setTimeout(startVideoStream, 1000 / 30);
+    console.log('nope it is not ready yet');
+    setTimeout(main, 1000 / 30);
   }
 }
 
-effect_blur.addEventListener('change', function () {
-  if (effect_blur.checked) {
-    startVideoStream();
-    console.log(img);
-    blurEffect = true;
-    foo = loadAndPredict();
-    console.log(foo); //   frameMerger(foo,blurEffect,grayEffect);
-  } else {
-    blurEffect = false; //   frameMerger(foo,blurEffect,grayEffect);
-  }
-});
+function body_segment() {
+  return _body_segment.apply(this, arguments);
+} // async function loadAndPredict() {
+//     // draw.globalAlpha = 1;
+//     draw.drawImage(img,0,0,img.width,img.height);
+//     const net = await bodyPix.load({
+//         architecture: 'MobileNetV1',
+//         outputStride: 16,
+//         multiplier: 0.75,
+//         quantBytes: 2
+//       });
+//       console.log('model loaded')
+//       console.log(img.height)
+//     const segmentation = await net.segmentPerson(img, {
+//         flipHorizontal: true,
+//         internalResolution: 'medium',
+//         segmentationThreshold: 0.75
+//     });
+//     console.log('segmentation loaded')
+//     const foregroundColor = { r: 0, g: 0, b: 0, a: 255 };
+//     const backgroundColor = { r: 0, g: 0, b: 0, a: 0 };
+//     const backgroundDarkeningMask = bodyPix.toMask(segmentation, foregroundColor, backgroundColor, false);
+//     console.log(backgroundDarkeningMask)
+//     // draw.putImageData(backgroundDarkeningMask,0,0);
+//     if (!(blurEffect && grayEffect)){
+//       frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
+//     }
+//     effect_blur.addEventListener('change', function () {
+//       if (effect_blur.checked) {
+//         blurEffect=true;
+//         frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
+//       } else {
+//         blurEffect=false;
+//         frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
+//       }
+//     })
+//     effect_gray.addEventListener('change', function () {
+//       if (effect_gray.checked) {
+//         grayEffect=true;
+//         frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
+//       } else {
+//         grayEffect=false;
+//         frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
+//       }
+//     })
+//     backImages=document.getElementsByClassName("backgrounds")
+//     for (backgroundImages of backImages){
+//       backgroundImages.addEventListener('click',function(){
+//       bgs = document.getElementById(this.id);
+//       bgs.style.opacity="1";
+//       frameMerger(backgroundDarkeningMask,blurEffect,grayEffect)
+//       })
+//     }
+//     }
 
-function loadAndPredict() {
-  return _loadAndPredict.apply(this, arguments);
-} // if (!(blurEffect && grayEffect)){
-//   frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
-// }
-// effect_blur.addEventListener('change', function () {
-//   if (effect_blur.checked) {
-//     blurEffect=true;
-//     frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
-//   } else {
-//     blurEffect=false;
-//     frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
-//   }
-// })
-// effect_gray.addEventListener('change', function () {
-//   if (effect_gray.checked) {
-//     grayEffect=true;
-//     frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
-//   } else {
-//     grayEffect=false;
-//     frameMerger(backgroundDarkeningMask,blurEffect,grayEffect);
-//   }
-// })
-// backImages=document.getElementsByClassName("backgrounds")
-// for (backgroundImages of backImages){
-//   backgroundImages.addEventListener('click',function(){
-//   bgs = document.getElementById(this.id);
-//   bgs.style.opacity="1";
-//   frameMerger(backgroundDarkeningMask,blurEffect,grayEffect)
-//   })
-// }
-// }
 
+function _body_segment() {
+  _body_segment = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var frame, canvas, draw, model, _loop;
 
-function _loadAndPredict() {
-  _loadAndPredict = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var net, segmentation, foregroundColor, backgroundColor, backgroundDarkeningMask;
-    return regeneratorRuntime.wrap(function _callee$(_context) {
+    return regeneratorRuntime.wrap(function _callee$(_context2) {
       while (1) {
-        switch (_context.prev = _context.next) {
+        switch (_context2.prev = _context2.next) {
           case 0:
-            _context.next = 2;
+            frame = document.getElementById("webcam"); // load HTML canvas
+
+            canvas = document.getElementById("canvas");
+            canvas.width = frame.width;
+            canvas, height = frame.height;
+            draw = canvas.getContext("2d"); // draw.globalAlpha = 0.3;
+
+            console.log(frame.width); // load body segmentation model
+
+            _context2.next = 8;
             return bodyPix.load({
-              architecture: 'MobileNetV1',
-              outputStride: 16,
-              multiplier: 0.75,
+              architecture: 'ResNet50',
+              outputStride: 32,
+              multiplier: 1,
               quantBytes: 2
             });
 
-          case 2:
-            net = _context.sent;
-            console.log('model loaded');
-            console.log(img);
-            _context.next = 7;
-            return net.segmentPerson(img, {
-              flipHorizontal: true,
-              internalResolution: 'medium',
-              segmentationThreshold: 0.75
+          case 8:
+            model = _context2.sent;
+            _loop = /*#__PURE__*/regeneratorRuntime.mark(function _loop() {
+              var result, foregroundColor, backgroundColor, backgroundDarkeningMask, _iterator, _step;
+
+              return regeneratorRuntime.wrap(function _loop$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return model.segmentPerson(frame, {
+                        flipHorizontal: false,
+                        internalResolution: 'low',
+                        segmentationThreshold: 0.4
+                      });
+
+                    case 2:
+                      result = _context.sent;
+                      foregroundColor = {
+                        r: 0,
+                        g: 0,
+                        b: 0,
+                        a: 255
+                      };
+                      backgroundColor = {
+                        r: 0,
+                        g: 0,
+                        b: 0,
+                        a: 0
+                      };
+                      backgroundDarkeningMask = bodyPix.toMask(result, foregroundColor, backgroundColor, false);
+                      backImages = document.getElementsByClassName("backgrounds");
+                      _iterator = _createForOfIteratorHelper(backImages);
+
+                      try {
+                        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                          backgroundImages = _step.value;
+                          backgroundImages.addEventListener('click', function () {
+                            bgs = document.getElementById(this.id);
+                            bgs.style.opacity = "1";
+                            frameMerger(backgroundDarkeningMask, blurEffect, grayEffect, frame);
+                          });
+                        } // frameMerger(backgroundDarkeningMask,false,false,frame)
+                        // console.log(result.width)
+                        // console.log(backgroundDarkeningMask)
+                        // draw.putImageData(backgroundDarkeningMask,0,0);
+                        // loop to process the next frame
+                        // console.log('next frame')
+
+                      } catch (err) {
+                        _iterator.e(err);
+                      } finally {
+                        _iterator.f();
+                      }
+
+                      _context.next = 11;
+                      return tf.nextFrame();
+
+                    case 11:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _loop);
             });
 
-          case 7:
-            segmentation = _context.sent;
-            console.log('segmentation loaded');
-            foregroundColor = {
-              r: 0,
-              g: 0,
-              b: 0,
-              a: 255
-            };
-            backgroundColor = {
-              r: 0,
-              g: 0,
-              b: 0,
-              a: 0
-            };
-            backgroundDarkeningMask = bodyPix.toMask(segmentation, foregroundColor, backgroundColor, false);
-            return _context.abrupt("return", backgroundDarkeningMask);
+          case 10:
+            if (!1) {
+              _context2.next = 14;
+              break;
+            }
 
-          case 13:
+            return _context2.delegateYield(_loop(), "t0", 12);
+
+          case 12:
+            _context2.next = 10;
+            break;
+
+          case 14:
           case "end":
-            return _context.stop();
+            return _context2.stop();
         }
       }
     }, _callee);
   }));
-  return _loadAndPredict.apply(this, arguments);
+  return _body_segment.apply(this, arguments);
 }
 
-function frameMerger(background_rm, blurr, grayy) {
+function frameMerger(background_rm, blurr, grayy, img) {
   if (!background_rm) {
     return;
   } // console.log(bgs);
+  //   canvas = document.getElementById('canvas');
+  //   canvas.width = img.width;
+  //   canvas.height = img.height;
 
 
-  var canvas = document.getElementById('canvas');
-  canvas.width = img.width;
-  canvas.height = img.height;
-  var ctx = canvas.getContext('2d');
-  ctx.globalCompositeOperation = 'destination-over';
-  ctx.putImageData(background_rm, 0, 0);
-  ctx.globalCompositeOperation = 'source-in'; // // ctx.putImageData(img, 0, 0);
+  var draw = canvas.getContext('2d');
+  draw.globalCompositeOperation = 'destination-over';
+  draw.putImageData(background_rm, 0, 0);
+  draw.globalCompositeOperation = 'source-in'; //   // // ctx.putImageData(img, 0, 0);
 
-  ctx.drawImage(img, 0, 0, img.width, img.height);
-  ctx.globalCompositeOperation = 'destination-atop';
+  draw.drawImage(img, 0, 0, img.width, img.height);
+  draw.globalCompositeOperation = 'destination-atop'; //   if (blurr){
+  //     draw.filter='blur(3px)';
+  //   }
+  //   if (grayy){
+  //     draw.filter='grayscale(1)';
+  //   }
+  //   if (blurr && grayy){
+  //     draw.filter='blur(3px) grayscale(1)';
+  //   }
 
-  if (blurr) {
-    ctx.filter = 'blur(3px)';
-  }
-
-  if (grayy) {
-    ctx.filter = 'grayscale(1)';
-  }
-
-  if (blurr && grayy) {
-    ctx.filter = 'blur(3px) grayscale(1)';
-  }
-
-  ctx.drawImage(bgs, 0, 0, img.width, img.height);
+  draw.drawImage(bgs, 0, 0, img.width, img.height);
 }
 },{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -308,7 +385,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52475" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57001" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
