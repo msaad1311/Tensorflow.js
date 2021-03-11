@@ -41,10 +41,10 @@ async function body_segment() {
   console.log(frame.width);
   // load body segmentation model
   const model = await bodyPix.load({
-    architecture: "ResNet50",
+    architecture: "MobileNetV1",
     outputStride: 16,
-    multiplier: 1,
-    quantBytes: 4,
+    multiplier: 0.75,
+    quantBytes: 2,
   });
 
   while (1) {
@@ -53,9 +53,9 @@ async function body_segment() {
 
     // extract person from frame
     const result = await model.segmentPerson(frame, {
-      flipHorizontal: false,
-      internalResolution: "medium",
-      segmentationThreshold: 0.75,
+      flipHorizontal: true,
+      internalResolution: "high",
+      segmentationThreshold: 0.85,
     });
     const foregroundColor = { r: 0, g: 0, b: 0, a: 255 };
     const backgroundColor = { r: 0, g: 0, b: 0, a: 0 };

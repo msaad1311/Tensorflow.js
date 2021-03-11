@@ -3,10 +3,22 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "@tensorflow/tfjs": "^3.3.0",
+    "@tensorflow/tfjs-converter": "^3.3.0",
+    "@tensorflow/tfjs-core": "^3.3.0",
+    "@tensorflow/tfjs-node": "^3.3.0",
+    "parcel-bundler": "^1.12.4"
+  },
+  "description": "",
+  "devDependencies": {
+    "parcel-plugin-static-files-copy": "^2.5.1"
+  }
 }

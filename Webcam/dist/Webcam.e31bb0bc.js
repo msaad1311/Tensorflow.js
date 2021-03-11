@@ -236,10 +236,10 @@ function _body_segment() {
 
             _context.next = 8;
             return bodyPix.load({
-              architecture: "ResNet50",
+              architecture: "MobileNetV1",
               outputStride: 16,
-              multiplier: 1,
-              quantBytes: 4
+              multiplier: 0.75,
+              quantBytes: 2
             });
 
           case 8:
@@ -253,9 +253,9 @@ function _body_segment() {
 
             _context.next = 12;
             return model.segmentPerson(frame, {
-              flipHorizontal: false,
-              internalResolution: "medium",
-              segmentationThreshold: 0.75
+              flipHorizontal: true,
+              internalResolution: "high",
+              segmentationThreshold: 0.85
             });
 
           case 12:
@@ -365,7 +365,7 @@ function frameMerger(background_rm, blurr, grayy, img) {
 
   draw.drawImage(bgs, 0, 0, img.width, img.height);
 }
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -393,7 +393,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57001" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62739" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -569,5 +569,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
 //# sourceMappingURL=/Webcam.e31bb0bc.js.map
